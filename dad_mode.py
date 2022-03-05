@@ -1,4 +1,3 @@
-from distutils.command.config import config
 import random
 import re
 from discord.ext import commands
