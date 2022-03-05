@@ -6,6 +6,8 @@ class ConfigHelper():
             with open('config.json') as json_file:
                 return json.load(json_file)
         except FileNotFoundError:
+            raise SystemExit('Config file not found')
+        except json.JSONDecodeError:
             raise SystemExit('Unable to open the config file')
 
     def save_config(config):
