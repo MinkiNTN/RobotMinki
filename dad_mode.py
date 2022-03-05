@@ -44,8 +44,11 @@ class DadMode(commands.Cog, name='Dad mode', description='Hello description, I a
     @commands.slash_command(name="set-dad-mode-percentage", description="Set trigger percentage for dad mode. 100% if not specified", guild_ids=config['guild_ids'])
     async def set_dad_mode_percentage(self, ctx, percent: int = 100):
         self.config['dad_mode_trigger_percentage'] = percent
-        ConfigHelper.save_config(self.config)
-        await ctx.respond(f"Dad mode trigger percentage set to {percent}%")
+        try:
+            ConfigHelper.save_config(self.config)
+            await ctx.respond(f"Dad mode trigger percentage set to {percent}%")
+        except PermissionError:
+            await ctx.respond(f"Failed to set dad mode trigger percentage. Error occured saving config file.")
 
 def setup(bot):
     bot.add_cog(DadMode(bot))
