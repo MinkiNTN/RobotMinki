@@ -5,7 +5,7 @@ from config_helper import ConfigHelper
 
 class DadMode(commands.Cog, name='Dad mode', description='Hello description, I am dad'):
     trigger_regex = r"^(I'm|I am)\W"
-    emote_regex = r'\<(.*?\:.*?)\>'
+    emote_regex = r'\<(:(.*?):\d{18})\>'
     user_id_regex = r'\<(@!\d{18})\>'
     role_id_regex = r'\<(@&\d{18})\>'
     config = ConfigHelper.load_config()
@@ -23,7 +23,7 @@ class DadMode(commands.Cog, name='Dad mode', description='Hello description, I a
         if re.search(self.trigger_regex, message.content, flags=re.IGNORECASE):
             if self.should_trigger(self.config['dad_mode_trigger_percentage']):
                 split_string = re.split(self.trigger_regex, message.content, maxsplit=1, flags=re.IGNORECASE)
-                result = re.sub(self.emote_regex, '', split_string[2])
+                result = re.sub(self.emote_regex, '<\g<2>>', split_string[2])
                 userids = re.findall(self.user_id_regex, result)
                 roleids = re.findall(self.role_id_regex, result)
 
