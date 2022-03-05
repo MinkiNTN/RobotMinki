@@ -1,0 +1,7 @@
+{
+	"bot_token": "your-bot-token-here",
+	"guild_ids": [],
+	"smooches_whitelist": [],
+	"wahhhh_whitelist": [],
+	"dad_mode_trigger_percentage": 100
+}
