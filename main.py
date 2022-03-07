@@ -30,19 +30,6 @@ token = config['bot_token']
 for id in config['guild_ids']:
     guild_ids.append(id)
     
-"""
-Check if a specific ID is in the whitelist
-To allow all, leave the list empty.
-"""
-def id_is_in_whitelist(id, list):
-    if list:
-        if list.count(id):
-            return True
-        else:
-            return False
-    else:
-        return True
-
 # Bot related stuff
 @bot.event
 async def on_ready():
@@ -60,10 +47,10 @@ async def on_message(message):
     if message.content == "k den":
         await message.channel.send('k den')
     # Eris classic #2: smooches
-    if id_is_in_whitelist(message.author.id, config['smooches_whitelist']) and message.content == "smooches": # Change the ID comparator to == once Mari is around
+    if ConfigHelper.id_is_in_whitelist(message.author.id, config['smooches_whitelist']) and message.content == "smooches":
         await message.channel.send(embed=smooches())
     # Eris classic #3: wahhhh
-    if id_is_in_whitelist(message.author.id, config['wahhhh_whitelist']) and message.content == 'wahhhh':
+    if ConfigHelper.id_is_in_whitelist(message.author.id, config['wahhhh_whitelist']) and message.content == 'wahhhh':
         await message.channel.send(embed=wahhhh())
     # Nothing matches, boo~
     await bot.process_commands(message)
@@ -95,11 +82,11 @@ async def shutdown(ctx):
     bot.clear()
     await bot.close()
 
+# Cog reload funtion
 async def get_extensions(ctx: discord.AutocompleteContext):
     """Returns a list of extensions that begin with the characters entered so far."""
     return [extension for extension in extensions if extension.startswith(ctx.value.lower())]
 
-# Cog reload funtion
 @bot.slash_command(name="reload", description="Reload the specified extension", guild_ids=guild_ids)
 async def reload(
         ctx: discord.ApplicationContext,
