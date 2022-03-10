@@ -71,7 +71,7 @@ class Safebooru(commands.Cog, name='Safebooru', description='Fetching images fro
     @commands.slash_command(name="safebooru", description="Fetch images from Safebooru", guild_ids=config['guild_ids'])
     async def safebooru(self, 
             ctx: discord.ApplicationContext,
-            tags: discord.Option(str, "Enter your tags", required = False, default = ''), 
+            tags: discord.Option(str, "Enter your tags (characters will take priority).", required = False, default = ''), 
             nisekoi_character: discord.Option(str, "Choose your favorite Nisekoi character.", required = False, autocomplete=get_nisekoi_character),
             randomise: discord.Option(bool, "Randomise the results?", default="True")
         ):
