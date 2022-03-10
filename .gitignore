@@ -6,3 +6,6 @@ __pycache__/
 
 config.json
 discord.log
+
+# Mac stuff
+.DS_Store
