@@ -84,14 +84,15 @@ class Safebooru(commands.Cog, name='Safebooru', description='Fetching images fro
             await ctx.respond('Searching for images with tags: {}'.format(tags))
 
         images = get_images(tags=tags)
-        if randomise:
-            images = random.sample(images, len(images))
-
         paginator = get_paginator(images)
         if paginator != None:
             await paginator.respond(ctx.interaction, ephemeral=False)
         else:
             await ctx.followup.send(f"Error fetching images, please try again later.")
-    
+        
+        if randomise:
+            random_page_no = random.randint(0, len(images))
+            await paginator.goto_page(random_page_no)
+
 def setup(bot):
     bot.add_cog(Safebooru(bot))
