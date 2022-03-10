@@ -39,7 +39,7 @@ class DadMode(commands.Cog, name='Dad mode', description='Hello description, I a
  
                 result = result.replace('@everyone', '<everyone>') 
                 result = result.replace('@here', '<here>')
-                await message.channel.send(f"Hello {result}, {split_string[1]} dad")
+                await message.reply(f"Hello {result}, {split_string[1]} dad", mention_author=False)
 
     @commands.slash_command(name="set-dad-mode-percentage", description="Set trigger percentage for dad mode. 100% if not specified", guild_ids=config['guild_ids'])
     async def set_dad_mode_percentage(self, ctx, percent: int = 100):
