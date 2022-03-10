@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from discord.commands import Option
 import logging
 from config_helper import ConfigHelper
 
@@ -90,7 +89,7 @@ async def get_extensions(ctx: discord.AutocompleteContext):
 @bot.slash_command(name="reload", description="Reload the specified extension", guild_ids=guild_ids)
 async def reload(
         ctx: discord.ApplicationContext,
-        extension: Option(str, "Enter in the extension name.", autocomplete=get_extensions)
+        extension: discord.Option(str, "Enter in the extension name.", autocomplete=get_extensions)
     ):
     try:
         bot.reload_extension(f"{extension}")
