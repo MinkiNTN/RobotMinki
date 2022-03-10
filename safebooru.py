@@ -5,15 +5,11 @@ import xmltodict
 import requests
 
 base_url = 'https://safebooru.org/index.php?page=dapi&s=post&q=index'
-req_header = {
-    "Cache-Control": "no-cache",
-    "Pragma": "no-cache"
-}
 
 def get_images(tags):
     formatted_tags = tags.replace(' ', '%20')
     url = base_url + f'&tags={formatted_tags}'
-    req = requests.get(url, headers=req_header)
+    req = requests.get(url)
     result = xmltodict.parse(req.content)
     return result['posts']['post']
 
@@ -38,9 +34,12 @@ class Safebooru(commands.Cog, name='Safebooru', description='Fetching images fro
         self.bot = bot
 
     @commands.slash_command(name="safebooru", description="Fetch images from Safebooru", guild_ids=config['guild_ids'])
-    async def safebooru(self, ctx, tags):
+    async def safebooru(self, ctx, tags: discord.Option(str, "Enter your tags", required = False, default = '')):
         self.images = get_images(tags)
-        await ctx.respond('Searching for images with tags: {}'.format(tags))
+        if tags == '':
+            await ctx.respond('Fetching most recent uploads')
+        else:
+            await ctx.respond('Searching for images with tags: {}'.format(tags))
         msg = await ctx.send(embed = get_embed(self.images, self.image_index))
         await add_reaction(msg)
 
