@@ -6,6 +6,7 @@ import requests
 import re
 from datetime import datetime
 import random
+import shared
 
 base_url = 'https://safebooru.org/index.php?page=dapi&s=post&q=index'
 
@@ -49,18 +50,6 @@ def get_paginator(images):
 class Safebooru(commands.Cog, name='Safebooru', description='Fetching images from Safebooru'):
     config = ConfigHelper.load_config()
 
-    NisekoiCharacter = [
-        'Ichijou Raku',
-        'Kanakura Yui',
-        'Kirisaki Chitoge',
-        'Maiko Shuu',
-        'Miyamoto Ruri',
-        'Onodera Haru',
-        'Onodera Kosaki',
-        'Tachibana Marika',
-        'Tsugumi Seishirou',
-    ]
-
     def __init__(self, bot):
         self.bot = bot
 
@@ -72,7 +61,7 @@ class Safebooru(commands.Cog, name='Safebooru', description='Fetching images fro
     async def safebooru(self, 
             ctx: discord.ApplicationContext,
             tags: discord.Option(str, "Enter your tags (characters will take priority).", required = False, default = ''), 
-            nisekoi_character: discord.Option(str, "Choose your favorite Nisekoi character.", required = False, autocomplete=get_nisekoi_character),
+            nisekoi_character: discord.Option(str, "Choose your favorite Nisekoi character.", required = False, autocomplete=shared.get_nisekoi_character),
             randomise: discord.Option(bool, "Randomise the results?", default="True")
         ):
         if nisekoi_character != None: # A character is selected
