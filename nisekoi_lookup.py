@@ -6,7 +6,7 @@ from mediawiki import MediaWiki
 
 class NisekoiLookup(commands.Cog, name='Nisekoi lookup tool', description='Fetching Nisekoi related stuff from Fandom Wiki'):
     config = ConfigHelper.load_config()
-    wiki = MediaWiki('https://nisekoi.fandom.com/api.php')
+    wiki = MediaWiki(url='https://nisekoi.fandom.com/api.php', user_agent='pyMediaWiki-User-Agent-String')
 
     def __init__(self, bot):
         self.bot = bot
