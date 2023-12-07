@@ -13,6 +13,7 @@ logger.addHandler(handler)
 
 intents = discord.Intents.default()
 intents.messages = True
+intents.message_content = True
 
 bot = commands.Bot(
     command_prefix="$",
@@ -35,8 +36,12 @@ async def on_ready():
     print(f"We have logged in as {bot.user}")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="the world burn. $ prefix"))
 
-@bot.event
-async def on_message(message):
+# @bot.event
+# async def on_message(message):
+#    await bot.process_commands(message)
+
+@bot.listen('on_message')
+async def reaction(message):
     if message.author == bot.user:
         return
     # Ping Pong~
@@ -51,8 +56,6 @@ async def on_message(message):
     # Eris classic #3: wahhhh
     if ConfigHelper.id_is_in_whitelist(message.author.id, config['wahhhh_whitelist']) and message.content == 'wahhhh':
         await message.channel.send(embed=wahhhh())
-    # Nothing matches, boo~
-    await bot.process_commands(message)
 
 @bot.command()
 async def test(ctx):
