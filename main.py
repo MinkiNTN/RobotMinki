@@ -22,7 +22,7 @@ bot = commands.Bot(
 )
 guild_ids = []
 
-extensions = ['dad_mode', 'safebooru']
+extensions = ['dad_mode', 'safebooru', 'manage_channel']
 
 # Config related stuff
 config = ConfigHelper.load_config()

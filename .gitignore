@@ -9,3 +9,5 @@ discord.log
 
 # Mac stuff
 .DS_Store
+
+test.py

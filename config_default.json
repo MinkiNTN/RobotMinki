@@ -3,5 +3,6 @@
 	"guild_ids": [],
 	"smooches_whitelist": [],
 	"wahhhh_whitelist": [],
-	"dad_mode_trigger_percentage": 100
+	"dad_mode_trigger_percentage": 100,
+	"is_channel_manager_enabled": false
 }
